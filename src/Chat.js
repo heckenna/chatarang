@@ -33,20 +33,22 @@ class Chat extends Component {
     }
   }
 
-  addMessage = () => {
+  addMessage = (body) => {
     const messages = [...this.state.messages];
+
+    const user =  {
+      uid: 'apple',
+      displayName: 'Noah',
+      email: "dude@singing.org",
+    }
 
     messages.push({
       id: Date.now(),
-      user: {
-        uid: 'apple',
-        displayName: 'Noah',
-        email: "dude@singing.org",
-      },
-      body: "LALALALALA",
+      user,
+      body,
     })
 
-    this.setState({ messages: messages});
+    this.setState({ messages});
   }
 
   render() {
