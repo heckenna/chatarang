@@ -10,32 +10,13 @@ class Chat extends Component {
 
     this.state = {
       messages: [
-        {
-          id: 1,
-          user: {
-            uid: 'sdfs34849327',
-            displayName: 'Davey',
-            email: 'davey@fretless.com',
-          },
-          body: 'Chatting up a storm, yo!',
-        },
-
-        {
-          id: 2,
-          user: {
-            uid: 'sdlfkj35948',
-            displayName: 'Dana',
-            email: 'dana@fretless.com',
-          },
-          body: 'This guy is so annoying. I hate my job.',
-        },
       ],
     }
   }
 
   addMessage = (body) => {
-    const messages = [...this.state.messages];
-    const user =  this.props.user
+    const messages = [...this.state.messages]
+    const user = this.props.user
 
     messages.push({
       id: `${user.uid}-${Date.now()}`,
@@ -43,26 +24,27 @@ class Chat extends Component {
       body,
     })
 
-    this.setState({ messages});
+    this.setState({ messages })
   }
 
   render() {
     return (
-      <div className="Chat" style={styles.chat}>
+      <div
+        className="Chat"
+        style={styles}
+      >
         <ChatHeader />
         <MessageList messages={this.state.messages} />
-        <MessageForm addMessage={this.addMessage}/>
+        <MessageForm addMessage={this.addMessage} />
       </div>
     )
   }
 }
 
 const styles = {
-  chat: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-  }
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
 }
 
 export default Chat
