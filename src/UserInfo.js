@@ -29,6 +29,7 @@ const styles = {
   user: {
     flex: 1,
     overflowX: "hidden",
+    marginRight: "0.25em",
   }
 }
 
