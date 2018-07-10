@@ -1,30 +1,32 @@
 import React, { Component } from 'react'
 
-import base from './base'
 import ChatHeader from './ChatHeader'
 import MessageList from './MessageList'
 import MessageForm from './MessageForm'
+import base from './base'
 
 class Chat extends Component {
   constructor() {
     super()
 
     this.state = {
-      messages: [
-      ],
+      messages: [],
     }
   }
 
   componentDidMount() {
-    this.messaggesRef = base.syncState('messages/general', {
-      context: this,
-      state: 'messages',
-      asArray: true,
-    })
+    this.messagesRef = base.syncState(
+      'messages/general',
+      {
+        context: this,
+        state: 'messages',
+        asArray: true,
+      }
+    )
   }
 
   componentWillUnmount() {
-    base.removeBinding(this.messaggesRef);
+    base.removeBinding(this.messagesRef)
   }
 
   addMessage = (body) => {
@@ -42,12 +44,14 @@ class Chat extends Component {
 
   render() {
     return (
-      <div
-        className="Chat"
-        style={styles}
-      >
-        <ChatHeader />
-        <MessageList messages={this.state.messages} />
+      <div className="Chat" style={styles}>
+        <ChatHeader
+          room={this.props.room}
+        />
+        <MessageList
+          messages={this.state.messages}
+          room={this.props.room}
+        />
         <MessageForm addMessage={this.addMessage} />
       </div>
     )
