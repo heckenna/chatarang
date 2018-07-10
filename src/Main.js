@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Sidebar from './Sidebar'
 import Chat from './Chat'
+import base from './base'
 
 class Main extends Component {
   state = {
@@ -26,6 +27,24 @@ class Main extends Component {
       },
     },
   }
+
+  componentDidMount() {
+    this.roomsRef = base.syncState(
+      'rooms', 
+      {
+        context: this,
+        state: 'rooms',
+        defaultValue: {
+          general: {
+            name: 'general',
+            description: 'Talk about stuff',
+          }
+        }
+      }
+    )
+  }
+
+
 
   setCurrentRoom = roomName => {
     const room = this.state.rooms[roomName]
