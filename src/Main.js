@@ -10,7 +10,7 @@ class Main extends Component {
       description: 'Ask questions and share code',
     },
     rooms: {
-      s3morning: {
+      s3afternoon: {
         name: 's3afternoon',
         description: 'Ask questions and share code',
       },
