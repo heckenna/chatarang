@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Sidebar from './Sidebar'
 import Chat from './Chat'
 import base from './base'
+import RoomForm from './RoomForm'
 
 class Main extends Component {
   state = {
@@ -44,6 +45,21 @@ class Main extends Component {
     )
   }
 
+  showRoomForm = () => {
+    this.setState({ showRoomForm: true })
+  }
+
+  hideRoomForm = () => {
+    this.setState({ showRoomForm: false })
+  }
+
+  addRoom =  (room) => {
+    const rooms = {...this.state.rooms};
+    rooms[room.name] = room;
+
+    this.setState({rooms});
+  }
+
 
 
   setCurrentRoom = roomName => {
@@ -52,20 +68,29 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <div className="Main" style={styles}>
-        <Sidebar
-          user={this.props.user}
-          signOut={this.props.signOut}
-          rooms={this.state.rooms}
-          setCurrentRoom={this.setCurrentRoom}
-        />
-        <Chat
-          user={this.props.user}
-          room={this.state.room}
-        />
-      </div>
-    )
+    if(this.state.showRoomForm) {
+      return <RoomForm addRoom={this.addRoom}/>
+    }
+
+    else {
+      return (
+        <div className="Main" style={styles}>
+          
+          <Sidebar
+            user={this.props.user}
+            signOut={this.props.signOut}
+            rooms={this.state.rooms}
+            setCurrentRoom={this.setCurrentRoom}
+            showRoomForm={this.showRoomForm}
+            hideRoomForm={this.hideRoomForm}
+          />
+          <Chat
+            user={this.props.user}
+            room={this.state.room}
+          />
+        </div>
+      )
+    }
   }
 }
 
