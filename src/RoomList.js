@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import { Link } from 'react-router-dom'
 
 import Room from './Room'
 
-const RoomList = ({ rooms, setCurrentRoom, showRoomForm, hideRoomForm }) => {
-  
+const RoomList = ({ rooms }) => {
   return (
     <nav
       className={`RoomList ${css(styles.roomList)}`}
@@ -13,23 +13,20 @@ const RoomList = ({ rooms, setCurrentRoom, showRoomForm, hideRoomForm }) => {
         <h2 className={css(styles.h2)}>
           Rooms
         </h2>
-        <button
+        <Link
           className={css(styles.button)}
-          onClick={showRoomForm}
+          to="/chat/new-room"
         >
-          <i className="fas fa-plus-circle" title="Add a room"></i>
-        </button>
+          <i className="fas fa-plus-circle" title="Add room"></i>
+        </Link>
       </div>
       <ul className={css(styles.list)}>
         {
           Object.keys(rooms).map(
-            roomName => (
-              <Room
-                key={roomName}
-                roomName={roomName}
-                setCurrentRoom={setCurrentRoom}
-              />
-            )
+            roomName => <Room
+                          roomName={roomName}
+                          key={roomName}
+                        />
           )
         }
       </ul>
@@ -70,9 +67,8 @@ const styles = StyleSheet.create({
 
     ':hover': {
       color: 'white',
-    },
+    }
   },
-
 })
 
 export default RoomList

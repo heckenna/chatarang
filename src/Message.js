@@ -10,6 +10,7 @@ const Message = ({ message }) => {
       style={styles.message}
     >
       <Avatar user={message.user} />
+
       <div style={styles.details}>
         <Metadata message={message} />
         <div className="body">

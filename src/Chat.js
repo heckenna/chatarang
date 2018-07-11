@@ -15,20 +15,26 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    this.syncMessages
+    this.syncMessages()
   }
 
-  componetDidUpdate(prevProps, _prevstate, _snapshot) {
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
     if (prevProps.room.name !== this.props.room.name) {
-      this.syncMessages
+      this.syncMessages()
     }
   }
 
-  syncMessages = (body) => {
-    if(this.messagesRef) {
+  componentWillUnmount() {
+    base.removeBinding(this.messagesRef)
+  }
+
+  syncMessages = () => {
+    // Stop syncing with the current endpoint
+    if (this.messagesRef) {
       base.removeBinding(this.messagesRef)
     }
 
+    // Sync with the new endpoint
     this.messagesRef = base.syncState(
       `messages/${this.props.room.name}`,
       {
@@ -39,10 +45,6 @@ class Chat extends Component {
     )
   }
 
-  componentWillUnmount() {
-    base.removeBinding(this.messagesRef)
-  }
-
   addMessage = (body) => {
     const messages = [...this.state.messages]
     const user = this.props.user
@@ -51,6 +53,7 @@ class Chat extends Component {
       id: `${user.uid}-${Date.now()}`,
       user,
       body,
+      createdAt: Date.now(),
     })
 
     this.setState({ messages })
@@ -61,6 +64,7 @@ class Chat extends Component {
       <div className="Chat" style={styles}>
         <ChatHeader
           room={this.props.room}
+          removeRoom={this.props.removeRoom}
         />
         <MessageList
           messages={this.state.messages}
